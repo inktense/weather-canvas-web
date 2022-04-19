@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from 'react'
+import {useSearchParams} from 'react-router-dom';
 
 const Canvas = props => {
+    console.log("props", props)
+    const [searchParams, setSearchParams] = useSearchParams();
+const a = searchParams.get("location")
+// const search = props.location.search;  
+// const name = new URLSearchParams(search).get('location');
+console.log("props", a)
   
   const canvasRef = useRef(null)
   
