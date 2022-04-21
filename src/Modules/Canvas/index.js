@@ -31,7 +31,7 @@ const Canvas = (props) => {
 
     };
     axiosRequest()
-  }, []);
+  }, [location]);
 
   // TODO implement error page
   if (error) console.log(`Error: ${error.message}`);
@@ -46,7 +46,7 @@ const Canvas = (props) => {
     
     context.fillStyle = background;
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-  }, [weather]);
+  }, [weather, background]);
 
   return (
     <canvas
