@@ -7,6 +7,8 @@ import { getColorPalette } from './utils/helpers'
 const Canvas = (props) => {
   const [error, setError] = React.useState(null);
   const [weather, setWeather] = React.useState(null);
+  const [background, setbackground] = React.useState(null);
+  const [colorsPallete, setcolorsPallete] = React.useState(null);
 
   const { location } = useParams();
 
@@ -19,23 +21,30 @@ const Canvas = (props) => {
         },
       });
 
-      setWeather(response.data);
+      if(response) {
+        setWeather(response.data);
+
+        const {background, colorsPallete} = getColorPalette(response.data?.current)
+        setbackground(background)
+        setcolorsPallete(colorsPallete)
+      }
+
     };
     axiosRequest()
   }, []);
 
   // TODO implement error page
   if (error) console.log(`Error: ${error.message}`);
-  
+
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
    
-    if(weather) getColorPalette(weather?.current)
+    // if(weather) {const {background, colorsPallete} = getColorPalette(weather?.current)}
     
-    context.fillStyle = "red";
+    context.fillStyle = background;
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
   }, [weather]);
 
