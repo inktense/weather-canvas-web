@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Canvas from './Canvas'
-import Home from "./Pages/Home";
+import Canvas from './Modules/Canvas'
+import Home from "./Modules/Home/Home";
 import "./Styles/main.css"
 
 
