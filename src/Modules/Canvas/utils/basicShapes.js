@@ -6,3 +6,10 @@ export const drawCircle = (context, x, y, radius, colorsPallete) => {
     context.fillStyle = sample(colorsPallete);
     context.fill();
 }
+
+export const drawRectangle = (context, x, y, width, height, colorsPallete) => {
+    context.beginPath();
+    context.fillStyle = sample(colorsPallete);;
+    context.rect(x, y, width, height);
+    context.fill();
+  }

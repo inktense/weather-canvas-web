@@ -1,6 +1,6 @@
 import { warmColors, coolColors, inBetweenColors } from '../../../Styles/colorPalletes'
 import { sample, random } from 'lodash'
-import { drawCircle } from './basicShapes'
+import { drawCircle, drawRectangle } from './basicShapes'
 
 export const getColorPalette = (weatherParams) => {
     const { temp_c } = weatherParams;
@@ -24,33 +24,50 @@ export const createCanvasDesign = (context, width, height, colorsPallete, weathe
     const heightHalf = height / 2;
     console.log("width => ", width, "height => ", height, heightThird, heightHalf,  width * 0.9)
 
-    drawSun(context, width, heightThird, colorsPallete, weatherParams)
+    console.log('weatherParams => ', weatherParams)
+
+    drawSun(context, width, heightThird, colorsPallete, weatherParams);
+    drawClouds(context, width, heightHalf, colorsPallete, weatherParams);
 }
 
 export const drawSun = (context, width, height, colorsPallete, weatherParams) => {
     const { temp_c, feelslike_c } = weatherParams;
     const { margX, margY } = calculateMargins(width, height)
-        
-    const radius = (feelslike_c - temp_c >= 0) ? 10 : 30
-    const x = random(0, width - margX) + radius + margX;
-    const y = random(0, height * 0.9) + radius + margY;
-
-    // console.log("ddd", height, height /2, height * 0.8)
+        console.log("test ", (feelslike_c - temp_c))
+    const offset = feelslike_c - temp_c
+    const radius = height * 0.3
+    const x = random(0, width - margX - radius) + radius + margX;
+    const y = random(0, height * 0.8) + radius + margY;
 
     drawCircle(context, x, y, radius, colorsPallete)
-    // console.log("test", x, y, radius)
-
-    // Randomply generate a new circle that has same staring point but larger radius
+    // Randomply generate a new circle that has same staring point but smaller radius
     if (random(0, 1)) {
         drawCircle(context, x, y, radius * random(0.2, 0.8), colorsPallete)
     }
-console.log('weatherParams => ', weatherParams)
 }
 
-export const drawClouds = () => {
-    // User reached end of study, we dont send any more notifications
-    // if (userReachedEndOfStudy(data)) return false;
-    // task/5173-disable-features-18plus
+export const drawClouds = (context, width, heightHalf, colorsPallete, weatherParams) => {
+    const x = random(0, width);
+    const y = random(0, heightHalf);
+    const heightRect = random(heightHalf / 10, heightHalf / 2);
+    const widthRect = random(0, heightHalf);
+
+    var angle = Math.random()*Math.PI*2;
+
+const a = Math.cos(angle)*3;
+const b = Math.sin(angle)*3;
+
+console.log("fdfd => ", angle, a, b)
+
+    drawRectangle(context, x, y, widthRect, heightRect, colorsPallete)
+
+    for (let i = 0; i < 10; i++) {
+        const x2 = random(x, widthRect);
+        const y2 = random(y, heightRect);
+        const heightRect2 = random(heightHalf / 10, heightHalf / 2);
+        const widthRect2 = random(0, heightHalf);
+        drawRectangle(context, x2, y2, widthRect2, heightRect2, colorsPallete)
+    }
 }
 
 export const calculateMargins = (width, height) => {
