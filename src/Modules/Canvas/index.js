@@ -2,9 +2,10 @@ import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import { getColorPalette } from './utils/helpers'
+import { getColorPalette, createCanvasDesign } from './utils/helpers'
 
 const Canvas = (props) => {
+
   const [error, setError] = React.useState(null);
   const [weather, setWeather] = React.useState(null);
   const [background, setbackground] = React.useState(null);
@@ -36,17 +37,22 @@ const Canvas = (props) => {
   // TODO implement error page
   if (error) console.log(`Error: ${error.message}`);
 
+  // Create immutable canvas and grab it from DOM
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-   
-    // if(weather) {const {background, colorsPallete} = getColorPalette(weather?.current)}
-    
+    const width = context.canvas.width;
+    const height = context.canvas.height;
+
     context.fillStyle = background;
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-  }, [weather, background]);
+    context.fillRect(0, 0, width, height);
+   
+    if(weather) createCanvasDesign(context, width, height, colorsPallete, weather.current)
+    
+
+  }, [weather, background, colorsPallete]);
 
   return (
     <canvas
