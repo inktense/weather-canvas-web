@@ -55,12 +55,14 @@ const Canvas = (props) => {
   }, [weather, background, colorsPallete]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={window.innerWidth}
-      height={window.innerHeight}
-      {...props}
-    />
+    <div>
+      <canvas
+        ref={canvasRef}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        {...props}
+      />
+    </div>
   );
 };
 

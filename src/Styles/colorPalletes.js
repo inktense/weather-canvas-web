@@ -16,4 +16,5 @@ export const inBetweenColors = [
     ["#f4f1de","#e07a5f","#3d405b","#81b29a","#f2cc8f"],
     ["#fe4a49","#fed766","#009fb7","#e6e6ea","#f4f4f8"],
     ["#094074","#3c6997","#5adbff","#ffdd4a","#fe9000"],
+    ["#a41623","#f85e00","#ffb563","#ffd29d","#918450"]
 ]
