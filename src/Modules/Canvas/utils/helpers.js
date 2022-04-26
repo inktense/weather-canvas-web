@@ -47,35 +47,23 @@ export const drawSun = (context, width, height, colorsPallete, weatherParams) =>
 }
 
 export const drawClouds = (context, width, heightHalf, colorsPallete, weatherParams) => {
+for (let i = 0; i < 5; i++) {
     const x = random(0, width);
     const y = random(0, heightHalf);
     const heightRect = random(heightHalf / 10, heightHalf / 2);
     const widthRect = random(0, heightHalf);
-
-    var angle = Math.random()*Math.PI*2;
-
-const a = Math.cos(angle)*3;
-const b = Math.sin(angle)*3;
-
-console.log("fdfd => ", angle, a, b, x, y)
-
     drawRectangle(context, x, y, widthRect, heightRect, colorsPallete)
 
-    for (let i = 0; i < 10; i++) {
-        const x2 = random(0, width);
-        const y2 = random(0, heightHalf);
-        const heightRect2 = random(heightHalf / 10, heightHalf / 2);
-        const widthRect2 = random(0, heightHalf);
-        drawRectangle(context, x2, y2, widthRect2, heightRect2, colorsPallete)
+    if (random(0, 1)) {
+        // Create a random cloud accent that has 15% width of main cloud and 80% of the height.
+        const heightRect2 = ( 80 / 100 ) * heightRect;
+        const widthRect2 = ( 15 / 100 ) * widthRect;
+        const x2 = x + ( 5 / 100 ) * widthRect;
+        const y2 = y + ( 10 / 100 ) * heightRect;
 
-        if (random(0, 1)) {
-            const x3 = random(0, width);
-            const y3 = random(0, heightHalf);
-            const heightRect3 = random(heightHalf / 10, heightHalf / 2);
-            const widthRect3 = random(0, heightHalf);
-            drawRectangle(context, x3, y3, widthRect3, heightRect3, colorsPallete)
-        }
+        drawRectangle(context, x2, y2, widthRect2, heightRect2, colorsPallete)
     }
+}
 }
 
 export const calculateMargins = (width, height) => {
