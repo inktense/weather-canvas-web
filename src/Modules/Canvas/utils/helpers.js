@@ -1,6 +1,7 @@
 import { warmColors, coolColors, inBetweenColors } from '../../../Styles/colorPalletes'
 import { sample, random } from 'lodash'
 import { drawCircle, drawRectangle } from './basicShapes'
+import { landscapeItemsNumber } from '../../../Constants/variables'
 
 export const getColorPalette = (weatherParams) => {
     const { temp_c } = weatherParams;
@@ -28,6 +29,7 @@ export const createCanvasDesign = (context, width, height, colorsPallete, weathe
 
     drawSun(context, width, heightThird, colorsPallete, weatherParams);
     drawClouds(context, width, heightHalf, colorsPallete, weatherParams);
+    drawLandscape(context, width, height, colorsPallete, weatherParams);
 }
 
 export const drawSun = (context, width, height, colorsPallete, weatherParams) => {
@@ -64,6 +66,33 @@ for (let i = 0; i < 5; i++) {
         drawRectangle(context, x2, y2, widthRect2, heightRect2, colorsPallete)
     }
 }
+}
+
+export const drawLandscape = (context, width, height, colorsPallete, weatherParams) => {
+    const iterationNumber = width / landscapeItemsNumber;
+
+    for (let i = 0; i < landscapeItemsNumber; i++) {
+        const radius = iterationNumber / 2;
+        const y = height;
+        const x = radius + (radius * 2 * i);
+
+        drawCircle(context, x, y, radius, colorsPallete);
+
+        // Creating the smaller accent circles
+        if (i < landscapeItemsNumber - 1) {
+            const radiusSmall = iterationNumber / 10;
+            const ySmall = height - radius;
+            const xSmall = (radius * 2) + (radius * 2 * i);
+    
+            drawCircle(context, xSmall, ySmall, radiusSmall, colorsPallete);
+        }
+        // Draw concentric circles
+        for (let i = 0; i < 5; i++) {
+        const radius2 = radius / i;
+        drawCircle(context, x, y, radius2, colorsPallete);
+        }
+    }
+
 }
 
 export const calculateMargins = (width, height) => {
